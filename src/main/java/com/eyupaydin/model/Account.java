@@ -20,6 +20,6 @@ public class Account {
     private String accountNumber;
 
     @Column(name = "balance")
-    private double balance;
+    private Double balance;
 
 }
