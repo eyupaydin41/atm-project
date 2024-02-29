@@ -1,6 +1,5 @@
 package com.eyupaydin.dto;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class AccountDto {
 
     private String accountNumber;
-    private double balance;
+    private Double balance;
 
 }
