@@ -47,7 +47,7 @@ public class TransferServiceImpl implements TransferServices {
                 } else {
                     Map<String, Boolean> response = new HashMap<>();
                     response.put("insufficient funds", false);
-                    return ResponseEntity.ok(response);
+                    return ResponseEntity.badRequest().body(response);
                 }
             }
 
@@ -55,7 +55,7 @@ public class TransferServiceImpl implements TransferServices {
         } else {
             Map<String, Boolean> response = new HashMap<>();
             response.put("invalid amount", false);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.badRequest().body(response);
         }
 
     }
@@ -81,7 +81,7 @@ public class TransferServiceImpl implements TransferServices {
         } else {
             Map<String, Boolean> response = new HashMap<>();
             response.put("invalid amount", false);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.badRequest().body(response);
         }
     }
 
@@ -107,8 +107,18 @@ public class TransferServiceImpl implements TransferServices {
                     transferRepository.save(DtoToEntity(transferDto));
 
                     return ResponseEntity.ok(response);
+                } else { // insufficient funds
+                    Map<TransferDto,Boolean> badRequestResponse = new HashMap<>();
+                    badRequestResponse.put(new TransferDto(),false);
+
+                    return ResponseEntity.badRequest().body(badRequestResponse);
                 }
             }
+        } else { // invalid Amount
+            Map<TransferDto,Boolean> badRequestResponse = new HashMap<>();
+            badRequestResponse.put(new TransferDto(),false);
+
+            return ResponseEntity.badRequest().body(badRequestResponse);
         }
         return ResponseEntity.notFound().build();
     }
