@@ -5,7 +5,6 @@ import com.eyupaydin.model.Account;
 import com.eyupaydin.repository.AccountRepository;
 import com.eyupaydin.service.AccountServices;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +17,9 @@ import java.util.stream.Collectors;
 @Service
 public class AccountServiceImpl implements AccountServices {
 
-    AccountRepository accountRepository;
-    ModelMapper modelMapper;
+    private final AccountRepository accountRepository;
+    private final ModelMapper modelMapper;
+
     public AccountServiceImpl(AccountRepository accountRepository, ModelMapper modelMapper) {
         this.accountRepository = accountRepository;
         this.modelMapper = modelMapper;
@@ -77,8 +77,8 @@ public class AccountServiceImpl implements AccountServices {
             Account account = optionalAccount.get();
             accountRepository.delete(account);
 
-            Map<String,Boolean> response = new HashMap<>();
-            response.put("deleted",true);
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("deleted", true);
 
             return ResponseEntity.ok(response);
         }
@@ -88,11 +88,11 @@ public class AccountServiceImpl implements AccountServices {
 
     @Override
     public AccountDto EntityToDto(Account account) {
-        return modelMapper.map(account,AccountDto.class);
+        return modelMapper.map(account, AccountDto.class);
     }
 
     @Override
     public Account DtoToEntity(AccountDto accountDto) {
-        return modelMapper.map(accountDto,Account.class);
+        return modelMapper.map(accountDto, Account.class);
     }
 }
